@@ -51,6 +51,20 @@ var formControls = (function() {
 
   };
 
+  var init = function(formSelector,projectileSelector) {
+
+    form = document.querySelector(formSelector);
+    projectile = document.querySelector(projectileSelector);
+    inputs = form.querySelectorAll('input[type=range]');
+
+    formValueDisplays();
+    startAnimation();
+  };
+
+  return {
+    init: init
+  };
+
 }());
 
 module.exports = formControls;
