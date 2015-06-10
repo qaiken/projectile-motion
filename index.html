@@ -15,10 +15,44 @@
 
   </div>
 
-  <form name="projectile-controls">
-    <input type="range">
+  <form class="projectile-controls">
+    <fieldset class="initV">
+      <label for="initV">Initial Velocity:</label>
+      <span class="initV-display"></span>
+      <input type="range" id="initV" name="initV" min="5" max="1000" step="5" value="450">
+    </fieldset>
 
+    <fieldset class="ga">
+      <label for="ga">Gravitational Acceleration:</label>
+      <span class="ga-display"></span>
+      <input type="range" id="ga" name="ga" min="-1000" max="-5" step="5" value="-200">
+    </fieldset>
 
+    <fieldset class="fc">
+      <label for="fc">Frictional Coefficient:</label>
+      <span class="fc-display"></span>
+      <input type="range" id="fc" name="fc" min="-1000" max="-5" step="5" value="-200">
+    </fieldset>
+
+    <fieldset class="theta">
+      <label for="theta">Angle (degrees):</label>
+      <span class="theta-display"></span>
+      <input type="range" id="theta" name="theta" min="0" max="90" step="5" value="-200">
+    </fieldset>
+
+    <fieldset class="initXPos">
+      <label for="initXPos">Initial X Position:</label>
+      <span class="initXPos-display"></span>
+      <input type="range" id="initXPos" name="initXPos" min="0" max="90" step="5" value="-200">
+    </fieldset>
+
+    <fieldset class="initYPos">
+      <label for="initYPos">Initial Y Position:</label>
+      <span class="initYPos-display"></span>
+      <input type="range" id="initYPos" name="initYPos" min="0" max="90" step="5" value="-200">
+    </fieldset>
+
+    <button class="submit">Run Simulation</button>
   </form>
   <!--[if IE 8]>
     <div class="browse-happy">
