@@ -5,8 +5,8 @@ var formControls = (function() {
   var inputs, input, form, runningAnimation, projectile;
 
   var formValueDisplays = function() {
-    for(var i = 0; i < inputs.length; i++) {
 
+    for(var i = 0; i < inputs.length; i++) {
       input = inputs[i];
 
       // init values
@@ -14,7 +14,12 @@ var formControls = (function() {
 
       input.addEventListener('change',function(e) {
         this.parentNode.querySelector('span').textContent = this.value;
-      })
+
+        if( (!runningAnimation || !runningAnimation.projectileAnimation) && (this.id === 'initXPos' || this.id === 'initYPos') ) {
+          projectile.style.left = document.getElementById('initXPos').value + 'px';
+          projectile.style.bottom = document.getElementById('initYPos').value + 'px';
+        }
+      });
     }
   };
 
