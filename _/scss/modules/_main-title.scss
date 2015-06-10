@@ -1,0 +1,21 @@
+//=================================
+// MAIN TITLE
+//=================================
+
+.main-title {
+  text-transform: uppercase;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  font-size: rem(200px);
+  text-align: center;
+  transform: translate3d(-50%,-50%,0);
+  z-index: 5;
+  transition: all 0.5s ease;
+  transform-origin: top left;
+  &:hover {
+    color: #fff;
+    cursor: pointer;
+  }
+}
+

@@ -5,6 +5,7 @@
 .projectile-controls {
   width: 95%;
   margin: rem(10px) auto 0 rem(10px);
+  opacity: 0;
   @include mq('large') {
     width: 50%;
     padding: 0 rem(10px);
@@ -40,6 +41,7 @@
     margin: 0 0 rem(5px) 0;
   }
   button {
+    text-transform: uppercase;
     cursor: pointer;
   }
 }
