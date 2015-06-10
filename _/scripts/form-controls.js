@@ -2,7 +2,8 @@ var Projectile = require('./Projectile');
 
 var formControls = (function() {
 
-  var inputs, input, form, runningAnimation, container, projectile;
+  var inputs, input, form,
+  runningAnimation, container, projectile;
 
   var maxInitPos = function () {
     var projectileWidth = projectile.clientWidth;
@@ -10,7 +11,7 @@ var formControls = (function() {
 
     initXPos.max = container.clientWidth - projectileWidth;
     initYPos.max = container.clientHeight - projectileHeight;
-  }
+  };
 
   var formValueDisplays = function() {
 

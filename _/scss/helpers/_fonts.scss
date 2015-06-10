@@ -6,7 +6,8 @@
 // @font-face & @import
 //---------------------------------
 
-// @import url("http://hello.myfonts.net/count/2b0ad4");
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:600);
+
 
 // @font-face {
 // 	font-family: 'ClarendonBT-Roman';
@@ -25,6 +26,7 @@
 $font-regular: 'Regular Font Family Name', sans-serif;
 $font-light: 'Light Font Family Name', sans-serif;
 $font-bold: 'Bold Font Family Name', sans-serif;
+$titillium: 'Titillium Web', sans-serif;
 
 // Variables best utilized for font services with family grouping.
 $font-name-one: 'Font Name One', sans-serif;
@@ -60,8 +62,8 @@ $fonts: (
 		font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 	}
 	// Font One
-	@if $family == "font-one" {
-		font-family: $font-name-one;
+	@if $family == "Titillium" {
+		font-family: $titillium;
 	}
 	// Font Two
 	@if $family == "font-two" {

@@ -25,6 +25,7 @@ body {
 	color: #000;
 	font-size: $body-font-size;
 	@include font-smoothing;
+  @include setfont(Titillium);
 }
 
 a {
