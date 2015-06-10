@@ -18,6 +18,39 @@ var formControls = (function() {
     }
   };
 
+  var startAnimation = function() {
+
+    form.addEventListener('submit',function(e) {
+
+      e.preventDefault();
+
+      var initV = document.getElementById('initV').value;
+      var g = document.getElementById('ga').value;
+      var fc = document.getElementById('fc').value;
+      var theta = document.getElementById('theta').value;
+      var initXPos = document.getElementById('initXPos').value;
+      var initYPos = document.getElementById('initYPos').value;
+
+      if(runningAnimation) {
+        runningAnimation.stopAnimation();
+      }
+
+      runningAnimation = new Projectile({
+        'selector': projectile,
+        'initV': +initV,
+        'g': +g,
+        'frictionCo': +fc,
+        'degrees': +theta,
+        'initXPos': +initXPos,
+        'initYPos': +initYPos
+      });
+
+      runningAnimation.startAnimation();
+
+    });
+
+  };
+
 }());
 
 module.exports = formControls;
