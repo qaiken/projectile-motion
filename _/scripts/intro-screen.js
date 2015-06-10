@@ -1,9 +1,10 @@
+var cssClasses = require('./css-classes');
+
 module.exports = (function() {
 
-  var mainTitle = document.querySelector('.main-title');
-  var form = document.querySelector('.projectile-controls');
-  var projectile = document.querySelector('.projectile');
-
+  var mainTitle = document.querySelector(cssClasses.title);
+  var form = document.querySelector(cssClasses.form);
+  var projectile = document.querySelector(cssClasses.projectile);
 
   mainTitle.addEventListener('click',function(e) {
     
