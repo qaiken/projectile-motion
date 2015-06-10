@@ -1,3 +1,7 @@
 var formControls = require('./form-controls');
 
-formControls.init('.projectile-controls','.projectile');
+formControls.init({
+  'simulationContainer' : '.simulation-container',
+  'formContainer' : '.projectile-controls',
+  'projectile' : '.projectile'
+});

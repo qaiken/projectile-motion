@@ -2,9 +2,24 @@ var Projectile = require('./Projectile');
 
 var formControls = (function() {
 
-  var inputs, input, form, runningAnimation, projectile;
+  var inputs, input, form, runningAnimation, container, projectile;
+
+  var maxInitPos = function () {
+    var projectileWidth = projectile.clientWidth;
+    var projectileHeight = projectile.clientHeight;
+
+    initXPos.max = container.clientWidth - projectileWidth;
+    initYPos.max = container.clientHeight - projectileHeight;
+  }
 
   var formValueDisplays = function() {
+
+    var initXPos = document.getElementById('initXPos');
+    var initYPos = document.getElementById('initYPos');
+
+    maxInitPos();
+
+    window.addEventListener('resize',maxInitPos);
 
     for(var i = 0; i < inputs.length; i++) {
       input = inputs[i];
@@ -16,8 +31,8 @@ var formControls = (function() {
         this.parentNode.querySelector('span').textContent = this.value;
 
         if( (!runningAnimation || !runningAnimation.projectileAnimation) && (this.id === 'initXPos' || this.id === 'initYPos') ) {
-          projectile.style.left = document.getElementById('initXPos').value + 'px';
-          projectile.style.bottom = document.getElementById('initYPos').value + 'px';
+          projectile.style.left = initXPos.value + 'px';
+          projectile.style.bottom = initYPos.value + 'px';
         }
       });
     }
@@ -56,10 +71,11 @@ var formControls = (function() {
 
   };
 
-  var init = function(formSelector,projectileSelector) {
+  var init = function(options) {
 
-    form = document.querySelector(formSelector);
-    projectile = document.querySelector(projectileSelector);
+    form = document.querySelector(options.formContainer);
+    projectile = document.querySelector(options.projectile);
+    container = document.querySelector(options.simulationContainer);
     inputs = form.querySelectorAll('input[type=range]');
 
     formValueDisplays();
