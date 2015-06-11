@@ -63,8 +63,7 @@ Projectile.prototype.projectileFrame = function(t) {
   if( t === 0 || xPos !== prevXPos ) {
     this.projectileAnimation = requestAnimationFrame(this.projectileFrame.bind(this));
   } else {
-    cancelAnimationFrame(this.projectileAnimation);
-    this.projectileAnimation = undefined;
+    this.stopAnimation();
   }
 };
 
