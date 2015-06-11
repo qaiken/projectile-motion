@@ -1,3 +1,3 @@
-# simple-gulp-boilerplate
+# Projectile Motion
 
-Just a simplified version of https://github.com/40Digits/gulp-starter
+Projectile Motion Simulation
