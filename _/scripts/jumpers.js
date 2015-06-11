@@ -19,6 +19,8 @@ module.exports = (function() {
       jumper.classList.add('jumper-'+i);
       jumper.classList.add('icon-soccer-ball');
 
+      jumper.style.zIndex = utils.randNumber(0,10);
+
       frag.appendChild(jumper);
     }
 
