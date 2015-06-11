@@ -13,10 +13,11 @@ module.exports = (function() {
   var initJumpers = function() {
     for(var i = 0; i < numJumpers; ++i) {
 
-      jumper = document.createElement('div');
+      jumper = document.createElement('i');
 
       jumper.classList.add('jumper');
       jumper.classList.add('jumper-'+i);
+      jumper.classList.add('icon-soccer-ball');
 
       frag.appendChild(jumper);
     }

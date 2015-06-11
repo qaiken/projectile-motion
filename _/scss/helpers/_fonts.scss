@@ -78,14 +78,14 @@ $fonts: (
 //----------------------------------
 
 @font-face {
-	font-family: 'icon-font';
-	src: url('assets/fonts/icon-font/icon-font.eot');
-	src: url('assets/fonts/icon-font/icon-font.eot#iefix') format('embedded-opentype'),
-		 url('assets/fonts/icon-font/icon-font.woff') format('woff'),
-		 url('assets/fonts/icon-font/icon-font.ttf') format('truetype'),
-		 url('assets/fonts/icon-font/icon-font.svg#icon-font') format('svg');
-	font-weight: normal;
-	font-style: normal;
+  font-family: 'icon-font';
+  src: url('../font/icon-font.eot?14725654');
+  src: url('../font/icon-font.eot?14725654#iefix') format('embedded-opentype'),
+       url('../font/icon-font.woff?14725654') format('woff'),
+       url('../font/icon-font.ttf?14725654') format('truetype'),
+       url('../font/icon-font.svg?14725654#icon-font') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 // Icon Font Placeholder
@@ -119,4 +119,4 @@ $fonts: (
 }
 
 // Icon Font Glyph Code
-.icon-example:before { content: '\e800'; }
+.icon-soccer-ball:before { content: '\e800'; }
