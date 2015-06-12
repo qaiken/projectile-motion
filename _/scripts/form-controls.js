@@ -28,7 +28,7 @@ var formControls = (function() {
       // init values
       input.parentNode.querySelector('span').textContent = input.value;
 
-      input.addEventListener('change',function(e) {
+      input.addEventListener('input',function(e) {
         this.parentNode.querySelector('span').textContent = this.value;
 
         if( (!runningAnimation || !runningAnimation.projectileAnimation) && (this.id === 'initXPos' || this.id === 'initYPos') ) {
