@@ -3,7 +3,8 @@ var Projectile = require('./Projectile');
 var formControls = (function() {
 
   var inputs, input, form,
-  runningAnimation, container, projectile;
+  runningAnimation, container, projectile,
+  angle, angleInitXPos, angleInitYPos;
 
   var maxInitPos = function () {
     var projectileWidth = projectile.clientWidth;
@@ -17,6 +18,7 @@ var formControls = (function() {
 
     var initXPos = document.getElementById('initXPos');
     var initYPos = document.getElementById('initYPos');
+    var theta = document.getElementById('theta');
 
     maxInitPos();
 
@@ -31,9 +33,21 @@ var formControls = (function() {
       input.addEventListener('input',function(e) {
         this.parentNode.querySelector('span').textContent = this.value;
 
-        if( (!runningAnimation || !runningAnimation.projectileAnimation) && (this.id === 'initXPos' || this.id === 'initYPos') ) {
-          projectile.style.left = initXPos.value + 'px';
-          projectile.style.bottom = initYPos.value + 'px';
+        if( (!runningAnimation || !runningAnimation.projectileAnimation) ) {
+
+          // initial position inputs
+          if( (this.id === 'initXPos' || this.id === 'initYPos') ) {
+            projectile.style.left = initXPos.value + 'px';
+            projectile.style.bottom = initYPos.value + 'px';
+
+            angle.style.left =  (+angleInitXPos + +initXPos.value) + 'px';
+            angle.style.bottom = (+angleInitYPos + +initYPos.value) + 'px';
+          }
+
+          if( this.id === 'theta' ) {
+            angle.style.transform = 'rotate(-' + theta.value + 'deg)';
+          }
+
         }
       });
     }
@@ -77,7 +91,11 @@ var formControls = (function() {
     form = document.querySelector(options.formContainer);
     projectile = document.querySelector(options.projectile);
     container = document.querySelector(options.simulationContainer);
+    angle = document.querySelector(options.angle);
     inputs = form.querySelectorAll('input[type=range]');
+
+    angleInitXPos = projectile.offsetWidth / 2;
+    angleInitYPos = projectile.offsetHeight / 2;
 
     formValueDisplays();
     startAnimation();

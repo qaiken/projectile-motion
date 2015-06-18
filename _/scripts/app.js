@@ -10,5 +10,6 @@ introScreen.init();
 formControls.init({
   'simulationContainer' : cssClasses.container,
   'formContainer' : cssClasses.form,
-  'projectile' : cssClasses.projectile
+  'projectile' : cssClasses.projectile,
+  'angle': cssClasses.angle
 });
