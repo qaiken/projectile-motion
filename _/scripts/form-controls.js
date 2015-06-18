@@ -39,8 +39,9 @@ var formControls = (function() {
             projectile.style.left = initXPos.value + 'px';
             projectile.style.bottom = initYPos.value + 'px';
 
-            angleLine.style.left =  (+angleLineInitXPos + +initXPos.value) + 'px';
-            angleLine.style.bottom = (+angleLineInitYPos + +initYPos.value) + 'px';
+            angleLine.style.left =  Number(angleLineInitXPos) + Number(initXPos.value) + 'px';
+            angleLine.style.bottom = Number(angleLineInitYPos) + Number(initYPos.value) + 'px';
+            angleLine.style.webkitTransform = 'rotate(-' + theta.value + 'deg)';
             angleLine.style.transform = 'rotate(-' + theta.value + 'deg)';
 
         }
