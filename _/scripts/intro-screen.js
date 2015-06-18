@@ -5,6 +5,7 @@ module.exports = (function() {
   var mainTitle;
   var form;
   var projectile;
+  var angle;
   var clicked = false;
 
   var titleClick = function() {
@@ -16,6 +17,7 @@ module.exports = (function() {
 
       form.classList.add('fade-in');
       projectile.classList.add('fade-in');
+      angle.classList.add('fade-in');
     });
 
   };
@@ -24,6 +26,7 @@ module.exports = (function() {
     mainTitle = document.querySelector(cssClasses.title);
     form = document.querySelector(cssClasses.form);
     projectile = document.querySelector(cssClasses.projectile);
+    angle = document.querySelector(cssClasses.angle);
 
     titleClick();
   };

@@ -3,5 +3,6 @@ module.exports = {
   'container': '.simulation-container',
   'projectile': '.projectile',
   'form': '.projectile-controls',
-  'jumpers': '.jumper'
+  'jumpers': '.jumper',
+  'angle': '.angle'
 };
