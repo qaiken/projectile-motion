@@ -4,7 +4,7 @@ var formControls = (function() {
 
   var inputs, input, form,
   runningAnimation, container, projectile,
-  angle, angleInitXPos, angleInitYPos;
+  angleLine, angleLineInitXPos, angleLineInitYPos;
 
   var maxInitPos = function () {
     var projectileWidth = projectile.clientWidth;
@@ -33,20 +33,15 @@ var formControls = (function() {
       input.addEventListener('input',function(e) {
         this.parentNode.querySelector('span').textContent = this.value;
 
-        if( (!runningAnimation || !runningAnimation.projectileAnimation) ) {
+        if( (!runningAnimation || !runningAnimation.projectileAnimation)
+          && (this.id === 'initXPos' || this.id === 'initYPos' || this.id === 'theta') ) {
 
-          // initial position inputs
-          if( (this.id === 'initXPos' || this.id === 'initYPos') ) {
             projectile.style.left = initXPos.value + 'px';
             projectile.style.bottom = initYPos.value + 'px';
 
-            angle.style.left =  (+angleInitXPos + +initXPos.value) + 'px';
-            angle.style.bottom = (+angleInitYPos + +initYPos.value) + 'px';
-          }
-
-          if( this.id === 'theta' ) {
-            angle.style.transform = 'rotate(-' + theta.value + 'deg)';
-          }
+            angleLine.style.left =  (+angleLineInitXPos + +initXPos.value) + 'px';
+            angleLine.style.bottom = (+angleLineInitYPos + +initYPos.value) + 'px';
+            angleLine.style.transform = 'rotate(-' + theta.value + 'deg)';
 
         }
       });
@@ -88,14 +83,14 @@ var formControls = (function() {
 
   var init = function(options) {
 
-    form = document.querySelector(options.formContainer);
-    projectile = document.querySelector(options.projectile);
-    container = document.querySelector(options.simulationContainer);
-    angle = document.querySelector(options.angle);
+    form = options.form;
+    projectile = options.projectile;
+    container = options.simulationContainer;
+    angleLine = options.angleLine;
     inputs = form.querySelectorAll('input[type=range]');
 
-    angleInitXPos = projectile.offsetWidth / 2;
-    angleInitYPos = projectile.offsetHeight / 2;
+    angleLineInitXPos = projectile.offsetWidth / 2;
+    angleLineInitYPos = projectile.offsetHeight / 2;
 
     formValueDisplays();
     startAnimation();
