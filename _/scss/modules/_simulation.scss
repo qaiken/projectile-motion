@@ -34,6 +34,7 @@ $projectile-height: 40px;
   transform-origin: 0% 50%;
   border-bottom: rem(2px) solid #000;
   opacity: 0;
+  z-index: 1;
   &:after {
     content: "";
     position: absolute;
