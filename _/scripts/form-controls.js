@@ -33,8 +33,7 @@ var formControls = (function() {
       input.addEventListener('input',function(e) {
         this.parentNode.querySelector('span').textContent = this.value;
 
-        if( (!runningAnimation || !runningAnimation.projectileAnimation)
-          && (this.id === 'initXPos' || this.id === 'initYPos' || this.id === 'theta') ) {
+        if( (!runningAnimation || !runningAnimation.projectileAnimation) && (this.id === 'initXPos' || this.id === 'initYPos' || this.id === 'theta') ) {
 
             projectile.style.left = initXPos.value + 'px';
             projectile.style.bottom = initYPos.value + 'px';
