@@ -1,7 +1,7 @@
 {
-  "name": "myApp",
+  "name": "projectile-motion",
   "version": "0.1.0",
-  "description": "Sample app",
+  "description": "Projectile Motion",
   "author": "Quinton Aiken",
   "devDependencies": {
     "browserify": "^10.2.3",
