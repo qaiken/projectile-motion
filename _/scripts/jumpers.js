@@ -69,9 +69,9 @@ module.exports = (function() {
               clearInterval(checkifStopped);
             }
 
-          },1000);
+          }, 1000);
 
-        },initDelay);
+        }, initDelay);
       }(i));
 
     }
