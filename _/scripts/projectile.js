@@ -23,7 +23,7 @@ Projectile.prototype.getFrictionalA = function() {
 };
 
 Projectile.prototype.degreesToRadians = function(degrees) {
-  return degrees * (Math.PI/180);
+  return degrees * (Math.PI / 180);
 };
 
 Projectile.prototype.getInitVx = function() {
@@ -35,7 +35,6 @@ Projectile.prototype.getInitVy = function() {
 };
 
 Projectile.prototype.projectileFrame = function(t) {
-
   this.animationStartTime = this.animationStartTime || t;
   t = t - this.animationStartTime;
 
@@ -44,35 +43,42 @@ Projectile.prototype.projectileFrame = function(t) {
 
   var frictionTime = 0;
 
-  var yPos = this.initYPos + (this.initVy * t) + (1/2)*this.g*Math.pow(t,2);
-  yPos = Math.max(0,yPos);
+  var yPos =
+    this.initYPos + this.initVy * t + (1 / 2) * this.g * Math.pow(t, 2);
+  yPos = Math.max(0, yPos);
 
-  if( this.projectileAnimation > 1 && yPos === 0 ) {
+  if (this.projectileAnimation > 1 && yPos === 0) {
     this.frictionStartTime = this.frictionStartTime || t;
     frictionTime = t - this.frictionStartTime;
   }
 
   var prevXPos = +this.projectile.style.left.slice(0, -2);
-  var xPos = this.initXPos + (this.initVx * t) + (1/2)*this.frictionalA*Math.pow(frictionTime,2);
+  var xPos =
+    this.initXPos +
+    this.initVx * t +
+    (1 / 2) * this.frictionalA * Math.pow(frictionTime, 2);
 
-  xPos = Math.max(prevXPos,xPos);
+  xPos = Math.max(prevXPos, xPos);
 
   this.projectile.style.left = xPos + 'px';
   this.projectile.style.bottom = yPos + 'px';
 
-  if( t === 0 || xPos !== prevXPos ) {
-    this.projectileAnimation = requestAnimationFrame(this.projectileFrame.bind(this));
+  if (t === 0 || xPos !== prevXPos) {
+    this.projectileAnimation = requestAnimationFrame(
+      this.projectileFrame.bind(this)
+    );
   } else {
     this.stopAnimation();
   }
 };
 
 Projectile.prototype.startAnimation = function() {
-
   this.projectile.style.left = this.initXPos + 'px';
   this.projectile.style.bottom = this.initYPos + 'px';
 
-  this.projectileAnimation = requestAnimationFrame(this.projectileFrame.bind(this));
+  this.projectileAnimation = requestAnimationFrame(
+    this.projectileFrame.bind(this)
+  );
 };
 
 Projectile.prototype.stopAnimation = function() {
