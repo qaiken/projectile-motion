@@ -1,32 +1,29 @@
 module.exports = (function() {
-  var mainTitle, form, projectile, angleLine;
-  var clicked = false;
+  var mainTitle, form, projectile, angleLine, onTitleClick;
 
-  var titleClick = function() {
+  var handleTitleClick = function() {
     mainTitle.addEventListener('click', function(e) {
-      clicked = true;
-
       this.classList.add('fade-out');
 
       form.classList.add('fade-in');
       projectile.classList.add('fade-in');
       angleLine.classList.add('fade-in');
+
+      onTitleClick();
     });
   };
 
-  var init = function(options) {
+  var init = function(options, onClick) {
     mainTitle = options.title;
     form = options.form;
     projectile = options.projectile;
     angleLine = options.angleLine;
 
-    titleClick();
+    onTitleClick = onClick;
+    handleTitleClick();
   };
 
   return {
-    init: init,
-    clicked: function() {
-      return clicked;
-    }
+    init: init
   };
 })();

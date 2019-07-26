@@ -1,10 +1,10 @@
+var jumpers = require('physics-jumpy').default;
+
 var domElements = require('./dom-elements');
 var formControls = require('./form-controls');
 var introScreen = require('./intro-screen');
-var jumpers = require('./jumpers');
 
-jumpers.init(40);
-
-introScreen.init(domElements);
+jumpers.init(40, 'icon-soccer-ball');
+introScreen.init(domElements, jumpers.stop);
 
 formControls.init(domElements);

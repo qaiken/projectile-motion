@@ -1,4 +1,4 @@
-var Projectile = require('./Projectile');
+var Projectile = require('physics-projectile').default;
 
 var formControls = (function() {
   var inputs,

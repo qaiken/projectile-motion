@@ -1,1 +1,359 @@
-!function t(e,i,n){function o(s,a){if(!i[s]){if(!e[s]){var c="function"==typeof require&&require;if(!a&&c)return c(s,!0);if(r)return r(s,!0);throw new Error("Cannot find module '"+s+"'")}var l=i[s]={exports:{}};e[s][0].call(l.exports,function(t){var i=e[s][1][t];return o(i?i:t)},l,l.exports,t,e,i,n)}return i[s].exports}for(var r="function"==typeof require&&require,s=0;s<n.length;s++)o(n[s]);return o}({1:[function(t,e,i){function n(t){this.projectile=t.selector,this.initV=t.initV,this.g=t.g,this.frictionCo=t.frictionCo,this.frictionalA=this.getFrictionalA(),this.theta=this.degreesToRadians(t.degrees),this.initXPos=t.initXPos,this.initYPos=t.initYPos,this.initVx=this.getInitVx(),this.initVy=this.getInitVy(),this.animationStartTime=0,this.frictionStartTime=0}n.prototype.getFrictionalA=function(){return this.frictionCo*this.g},n.prototype.degreesToRadians=function(t){return t*(Math.PI/180)},n.prototype.getInitVx=function(){return this.initV*Math.cos(this.theta)},n.prototype.getInitVy=function(){return this.initV*Math.sin(this.theta)},n.prototype.projectileFrame=function(t){this.animationStartTime=this.animationStartTime||t,t-=this.animationStartTime,t/=1e3;var e=0,i=this.initYPos+this.initVy*t+.5*this.g*Math.pow(t,2);i=Math.max(0,i),this.projectileAnimation>1&&0===i&&(this.frictionStartTime=this.frictionStartTime||t,e=t-this.frictionStartTime);var n=+this.projectile.style.left.slice(0,-2),o=this.initXPos+this.initVx*t+.5*this.frictionalA*Math.pow(e,2);o=Math.max(n,o),this.projectile.style.left=o+"px",this.projectile.style.bottom=i+"px",0===t||o!==n?this.projectileAnimation=requestAnimationFrame(this.projectileFrame.bind(this)):this.stopAnimation()},n.prototype.startAnimation=function(){this.projectile.style.left=this.initXPos+"px",this.projectile.style.bottom=this.initYPos+"px",this.projectileAnimation=requestAnimationFrame(this.projectileFrame.bind(this))},n.prototype.stopAnimation=function(){cancelAnimationFrame(this.projectileAnimation),this.projectileAnimation=void 0},e.exports=n},{}],2:[function(t,e,i){e.exports={title:document.querySelector(".main-title"),simulationContainer:document.querySelector(".simulation-container"),form:document.querySelector(".projectile-controls"),projectile:document.querySelector(".projectile"),jumpers:document.querySelector(".jumper"),angleLine:document.querySelector(".angle")}},{}],3:[function(t,e,i){var n=t("./dom-elements"),o=t("./form-controls"),r=t("./intro-screen"),s=t("./jumpers");s.init(40),r.init(n),o.init(n)},{"./dom-elements":2,"./form-controls":4,"./intro-screen":5,"./jumpers":6}],4:[function(t,e,i){var n=t("./Projectile"),o=function(){var t,e,i,o,r,s,a,c,l,u=function(){var t=s.clientWidth,e=s.clientHeight;initXPos.max=r.clientWidth-t,initYPos.max=r.clientHeight-e},m=function(){var i=document.getElementById("initXPos"),n=document.getElementById("initYPos"),r=document.getElementById("theta");u(),window.addEventListener("resize",u);for(var m=0;m<t.length;m++)e=t[m],e.parentNode.querySelector("span").textContent=e.value,e.addEventListener("input",function(t){this.parentNode.querySelector("span").textContent=this.value,o&&o.projectileAnimation||"initXPos"!==this.id&&"initYPos"!==this.id&&"theta"!==this.id||(s.style.left=i.value+"px",s.style.bottom=n.value+"px",a.style.left=Number(c)+Number(i.value)+"px",a.style.bottom=Number(l)+Number(n.value)+"px",a.style.webkitTransform="rotate(-"+r.value+"deg)",a.style.transform="rotate(-"+r.value+"deg)")})},d=function(){i.addEventListener("submit",function(t){t.preventDefault();var e=document.getElementById("initV").value,i=document.getElementById("ga").value,r=document.getElementById("fc").value,a=document.getElementById("theta").value,c=document.getElementById("initXPos").value,l=document.getElementById("initYPos").value;o&&o.stopAnimation(),o=new n({selector:s,initV:+e,g:+i,frictionCo:+r,degrees:+a,initXPos:+c,initYPos:+l}),o.startAnimation()})},f=function(e){i=e.form,s=e.projectile,r=e.simulationContainer,a=e.angleLine,t=i.querySelectorAll("input[type=range]"),c=s.offsetWidth/2,l=s.offsetHeight/2,m(),d()};return{init:f}}();e.exports=o},{"./Projectile":1}],5:[function(t,e,i){e.exports=function(){var t,e,i,n,o=!1,r=function(){t.addEventListener("click",function(t){o=!0,this.classList.add("fade-out"),e.classList.add("fade-in"),i.classList.add("fade-in"),n.classList.add("fade-in")})},s=function(o){t=o.title,e=o.form,i=o.projectile,n=o.angleLine,r()};return{init:s,clicked:function(){return o}}}()},{}],6:[function(t,e,i){var n=t("./Projectile"),o=t("./utils"),r=t("./intro-screen");e.exports=function(){var t,e,i=window.outerWidth,s=document.createDocumentFragment(),a=function(){for(var i=0;e>i;++i)t=document.createElement("i"),t.classList.add("jumper"),t.classList.add("jumper-"+i),t.classList.add("icon-soccer-ball"),t.style.zIndex=o.randNumber(0,10),s.appendChild(t);document.body.appendChild(s)},c=function(){for(var t=(document.querySelectorAll(".jumper"),0);e>t;++t)!function(t){var e=o.randNumber(0,5e3),s=o.randNumber(250,750),a=o.randNumber(-1e3,0),c=o.randNumber(70,90),l=o.randNumber(0,i);setTimeout(function u(){var e=new n({selector:document.querySelector(".jumper-"+t),initV:s,g:a,frictionCo:.5,degrees:c,initXPos:l,initYPos:-50});e.startAnimation();var i=setInterval(function(){r.clicked()||e.projectileAnimation||(clearInterval(i),u()),r.clicked()&&clearInterval(i)},1e3)},e)}(t)},l=function(t){e=t,a(),c()};return{init:l}}()},{"./Projectile":1,"./intro-screen":5,"./utils":7}],7:[function(t,e,i){e.exports={randNumber:function(t,e){return Math.floor(Math.random()*(e-t+1)+t)}}},{}]},{},[3]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports = {
+  title: document.querySelector('.main-title'),
+  simulationContainer: document.querySelector('.simulation-container'),
+  form: document.querySelector('.projectile-controls'),
+  projectile: document.querySelector('.projectile'),
+  jumpers: document.querySelector('.jumper'),
+  angleLine: document.querySelector('.angle')
+};
+
+},{}],2:[function(require,module,exports){
+var jumpers = require('physics-jumpy').default;
+
+var domElements = require('./dom-elements');
+var formControls = require('./form-controls');
+var introScreen = require('./intro-screen');
+
+jumpers.init(40, 'icon-soccer-ball');
+introScreen.init(domElements, jumpers.stop);
+
+formControls.init(domElements);
+
+},{"./dom-elements":1,"./form-controls":3,"./intro-screen":4,"physics-jumpy":5}],3:[function(require,module,exports){
+var Projectile = require('physics-projectile').default;
+
+var formControls = (function() {
+  var inputs,
+    input,
+    form,
+    runningAnimation,
+    container,
+    projectile,
+    angleLine,
+    angleLineInitXPos,
+    angleLineInitYPos;
+
+  var maxInitPos = function() {
+    var projectileWidth = projectile.clientWidth;
+    var projectileHeight = projectile.clientHeight;
+
+    initXPos.max = container.clientWidth - projectileWidth;
+    initYPos.max = container.clientHeight - projectileHeight;
+  };
+
+  var formValueDisplays = function() {
+    var initXPos = document.getElementById('initXPos');
+    var initYPos = document.getElementById('initYPos');
+    var theta = document.getElementById('theta');
+
+    maxInitPos();
+
+    window.addEventListener('resize', maxInitPos);
+
+    for (var i = 0; i < inputs.length; i++) {
+      input = inputs[i];
+
+      // init values
+      input.parentNode.querySelector('span').textContent = input.value;
+
+      input.addEventListener('input', function(e) {
+        this.parentNode.querySelector('span').textContent = this.value;
+
+        if (
+          (!runningAnimation || !runningAnimation.projectileAnimation) &&
+          (this.id === 'initXPos' ||
+            this.id === 'initYPos' ||
+            this.id === 'theta')
+        ) {
+          projectile.style.left = initXPos.value + 'px';
+          projectile.style.bottom = initYPos.value + 'px';
+
+          angleLine.style.left =
+            Number(angleLineInitXPos) + Number(initXPos.value) + 'px';
+          angleLine.style.bottom =
+            Number(angleLineInitYPos) + Number(initYPos.value) + 'px';
+          angleLine.style.webkitTransform = 'rotate(-' + theta.value + 'deg)';
+          angleLine.style.transform = 'rotate(-' + theta.value + 'deg)';
+        }
+      });
+    }
+  };
+
+  var startAnimation = function() {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var initV = document.getElementById('initV').value;
+      var g = document.getElementById('ga').value;
+      var fc = document.getElementById('fc').value;
+      var theta = document.getElementById('theta').value;
+      var initXPos = document.getElementById('initXPos').value;
+      var initYPos = document.getElementById('initYPos').value;
+
+      if (runningAnimation) {
+        runningAnimation.stopAnimation();
+      }
+
+      runningAnimation = new Projectile({
+        selector: projectile,
+        initV: +initV,
+        g: +g,
+        frictionCo: +fc,
+        degrees: +theta,
+        initXPos: +initXPos,
+        initYPos: +initYPos
+      });
+
+      runningAnimation.startAnimation();
+    });
+  };
+
+  var init = function(options) {
+    form = options.form;
+    projectile = options.projectile;
+    container = options.simulationContainer;
+    angleLine = options.angleLine;
+    inputs = form.querySelectorAll('input[type=range]');
+
+    angleLineInitXPos = projectile.offsetWidth / 2;
+    angleLineInitYPos = projectile.offsetHeight / 2;
+
+    formValueDisplays();
+    startAnimation();
+  };
+
+  return {
+    init: init
+  };
+})();
+
+module.exports = formControls;
+
+},{"physics-projectile":7}],4:[function(require,module,exports){
+module.exports = (function() {
+  var mainTitle, form, projectile, angleLine, onTitleClick;
+
+  var handleTitleClick = function() {
+    mainTitle.addEventListener('click', function(e) {
+      this.classList.add('fade-out');
+
+      form.classList.add('fade-in');
+      projectile.classList.add('fade-in');
+      angleLine.classList.add('fade-in');
+
+      onTitleClick();
+    });
+  };
+
+  var init = function(options, onClick) {
+    mainTitle = options.title;
+    form = options.form;
+    projectile = options.projectile;
+    angleLine = options.angleLine;
+
+    onTitleClick = onClick;
+    handleTitleClick();
+  };
+
+  return {
+    init: init
+  };
+})();
+
+},{}],5:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _physicsProjectile = _interopRequireDefault(require("physics-projectile"));
+
+var _utils = require("./utils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = function () {
+  let numJumpers, jumpyClass;
+  let isRunning = false;
+  const winWidth = window.outerWidth;
+  const frag = document.createDocumentFragment();
+
+  const initJumpers = function () {
+    for (let i = 0; i < numJumpers; ++i) {
+      const jumper = document.createElement('i');
+      jumper.classList.add('jumper', `jumper-${i}`, jumpyClass);
+      jumper.style.zIndex = (0, _utils.getRandomNum)(0, 10);
+      frag.appendChild(jumper);
+    }
+
+    document.body.appendChild(frag);
+  };
+
+  const jumpEm = function () {
+    for (let i = 0; i < numJumpers; ++i) {
+      (function (i) {
+        let initDelay = (0, _utils.getRandomNum)(0, 5000);
+        let initV = (0, _utils.getRandomNum)(250, 750);
+        let g = (0, _utils.getRandomNum)(-1000, 0);
+        let degrees = (0, _utils.getRandomNum)(70, 90);
+        let initXPos = (0, _utils.getRandomNum)(0, winWidth);
+        setTimeout(function Jump() {
+          let runningAnimation = new _physicsProjectile.default({
+            selector: document.querySelector(`.jumper-${i}`),
+            initV: initV,
+            g: g,
+            frictionCo: 0.5,
+            degrees: degrees,
+            initXPos: initXPos,
+            initYPos: -50
+          });
+          runningAnimation.startAnimation();
+          const checkifStopped = setInterval(function () {
+            if (isRunning && !runningAnimation.projectileAnimation) {
+              clearInterval(checkifStopped);
+              Jump();
+            }
+
+            if (!isRunning) {
+              clearInterval(checkifStopped);
+            }
+          }, 1000);
+        }, initDelay);
+      })(i);
+    }
+  };
+
+  const init = function (jumperCount = 20, className = 'jumpy-class') {
+    numJumpers = jumperCount;
+    jumpyClass = className;
+    isRunning = true;
+    initJumpers();
+    jumpEm();
+    return true;
+  };
+
+  const stop = function () {
+    isRunning = false;
+    return true;
+  };
+
+  return {
+    init,
+    stop,
+    start: jumpEm
+  };
+}();
+
+exports.default = _default;
+},{"./utils":6,"physics-projectile":7}],6:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getRandomNum = void 0;
+
+const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+exports.getRandomNum = getRandomNum;
+},{}],7:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+class Projectile {
+  constructor({
+    selector,
+    initV = 250,
+    g = -10,
+    frictionCo = 0.5,
+    degrees = 90,
+    initXPos = 0,
+    initYPos = -50
+  }) {
+    if (!selector) {
+      throw new Error('must supply a selector');
+    }
+
+    this.projectile = selector;
+    this.initV = initV;
+    this.g = g;
+    this.frictionCo = frictionCo;
+    this.frictionalA = this.getFrictionalA();
+    this.theta = this.degreesToRadians(degrees);
+    this.initXPos = initXPos;
+    this.initYPos = initYPos;
+    this.initVx = this.getInitVx();
+    this.initVy = this.getInitVy();
+    this.animationStartTime = 0;
+    this.frictionStartTime = 0;
+  }
+
+  getFrictionalA() {
+    return this.frictionCo * this.g;
+  }
+
+  degreesToRadians(degrees) {
+    return degrees * (Math.PI / 180);
+  }
+
+  getInitVx() {
+    return this.initV * Math.cos(this.theta);
+  }
+
+  getInitVy() {
+    return this.initV * Math.sin(this.theta);
+  }
+
+  projectileFrame(t) {
+    this.animationStartTime = this.animationStartTime || t;
+    t = t - this.animationStartTime; // seconds
+
+    t = t / 1000;
+    let frictionTime = 0;
+    let yPos = this.initYPos + this.initVy * t + 1 / 2 * this.g * Math.pow(t, 2);
+    yPos = Math.max(0, yPos);
+
+    if (this.projectileAnimation > 1 && yPos === 0) {
+      this.frictionStartTime = this.frictionStartTime || t;
+      frictionTime = t - this.frictionStartTime;
+    }
+
+    let prevXPos = +this.projectile.style.left.slice(0, -2);
+    let xPos = this.initXPos + this.initVx * t + 1 / 2 * this.frictionalA * Math.pow(frictionTime, 2);
+    xPos = Math.max(prevXPos, xPos);
+    this.projectile.style.left = xPos + 'px';
+    this.projectile.style.bottom = yPos + 'px';
+
+    if (t === 0 || xPos !== prevXPos) {
+      this.projectileAnimation = requestAnimationFrame(this.projectileFrame.bind(this));
+      return null;
+    }
+
+    this.stopAnimation();
+  }
+
+  startAnimation() {
+    this.projectile.style.left = this.initXPos + 'px';
+    this.projectile.style.bottom = this.initYPos + 'px';
+    this.projectileAnimation = requestAnimationFrame(this.projectileFrame.bind(this));
+    return true;
+  }
+
+  stopAnimation() {
+    cancelAnimationFrame(this.projectileAnimation);
+    this.projectileAnimation = undefined;
+    return true;
+  }
+
+}
+
+var _default = Projectile;
+exports.default = _default;
+},{}]},{},[2])
